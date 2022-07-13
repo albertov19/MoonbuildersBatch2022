@@ -2,8 +2,7 @@ const hre = require('hardhat');
 const { batch } = require('../addresses.json');
 
 async function main() {
-  // Load Batch
-  const batchContract = await hre.ethers.getContractAt('Batch', batch);
+  const provider = ethers.provider;
 
   // Alice and Bob
   const alice = {
@@ -15,6 +14,17 @@ async function main() {
     value: '1000000000000000000',
   };
 
+  //Print Balance
+  console.log(
+    `Alice balance: ${ethers.utils.formatEther(await provider.getBalance(alice.address))} DEV`
+  );
+  console.log(
+    `Bob balance: ${ethers.utils.formatEther(await provider.getBalance(bob.address))} DEV`
+  );
+
+  // Load Batch
+  const batchContract = await hre.ethers.getContractAt('Batch', batch);
+
   // Send tokens to Alice and Bob using Batch
   const tx = await batchContract.batchAll(
     [alice.address, bob.address],
@@ -25,6 +35,14 @@ async function main() {
   await tx.wait();
 
   console.log(`Tx sent with hash ${tx.hash}`);
+
+  //Print Balance
+  console.log(
+    `Alice balance: ${ethers.utils.formatEther(await provider.getBalance(alice.address))} DEV`
+  );
+  console.log(
+    `Bob balance: ${ethers.utils.formatEther(await provider.getBalance(bob.address))} DEV`
+  );
 }
 
 // We recommend this pattern to be able to use async/await everywhere
