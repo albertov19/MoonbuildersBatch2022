@@ -21,7 +21,7 @@ async function main() {
   tx = await makePizza.populateTransaction.makePizza();
   let makePizzaCall = tx.data;
 
-  // Batch Transactions
+  // Batch Transaction
   tx = await batchContract.batchAll(
     [pizzaToken.address, makePizza.address],
     [],
@@ -42,6 +42,3 @@ main().catch((error) => {
   console.error(error);
   process.exitCode = 1;
 });
-
-0x095ea7b3000000000000000000000000f060818668c38deb0cca1b9746977d696a5a1def0000000000000000000000000000000000000000000000000de0b6b3a7640000;
-0x095ea7b30000000000000000000000004867bc21a5ab7b7b8449398a654f55b18ba34dc30000000000000000000000000000000000000000000000000de0b6b3a7640000;
